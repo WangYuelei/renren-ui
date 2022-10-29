@@ -10,7 +10,7 @@
         <el-input v-model="dataForm.sex" placeholder="性别"></el-input>
       </el-form-item>
       <el-form-item label="生日" prop="birthday">
-        <el-date-picker v-model="dataForm.birthday" placeholder="生日"></el-date-picker>
+        <el-date-picker v-model="dataForm.birthday" placeholder="生日" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
       </el-form-item>
       <el-form-item label="身高" prop="height">
         <el-input v-model="dataForm.height" placeholder="身高"></el-input>
@@ -20,7 +20,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <el-button @click="visible = false">{{ $t('cancel') }}</el-button>
+      <el-button @click="visible = false" >{{ $t('cancel') }}</el-button>
       <el-button type="primary" @click="dataFormSubmitHandle()">{{ $t('confirm') }}</el-button>
     </template>
   </el-dialog>

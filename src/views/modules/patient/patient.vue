@@ -35,8 +35,8 @@
         <el-table-column prop="reviser" label="修最后一次改者" header-align="center" align="center"></el-table-column>
         <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
           <template slot-scope="scope">
-            <el-button v-if="$hasPermission('patient:patient:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
-            <el-button v-if="$hasPermission('patient:patient:delete')" type="text" size="small" @click="deleteHandle(scope.row.id)">{{ $t('delete') }}</el-button>
+            <el-button v-if="$hasPermission('patient:patient:update')" type="primary" size="small" @click="addOrUpdateHandle(scope.row.patientid)">{{ $t('update') }}</el-button>
+            <el-button v-if="$hasPermission('patient:patient:delete')" type="danger" size="small" @click="deleteHandle(scope.row.patientid)" >{{ $t('delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
