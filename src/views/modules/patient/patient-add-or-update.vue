@@ -7,7 +7,15 @@
         <el-input v-model="dataForm.patientname" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="sex">
-        <el-input v-model="dataForm.sex" placeholder="性别"></el-input>
+<!--        <el-input v-model="dataForm.sex" placeholder="性别"></el-input>-->
+        <el-select v-model="dataForm.sex"  placeholder="性别" >
+          <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value*1">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="生日" prop="birthday">
         <el-date-picker v-model="dataForm.birthday" placeholder="生日" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
@@ -47,7 +55,14 @@ export default {
         recordisdeleted: '',
         recordupdatetime: '',
         reviser: ''
-      }
+      },
+      options: [{
+        value: 1,
+        label: '男'
+      }, {
+        value: 2,
+        label: '女'
+      }],
     }
   },
   computed: {
@@ -125,7 +140,7 @@ export default {
         }).catch(() => {
         })
       })
-    }, 1000, {'leading': true, 'trailing': false})
+    }, 1000, {'leading': true, 'trailing': false}),
   }
 }
 </script>

@@ -3,8 +3,26 @@
     <div class="mod-patient__patient}">
       <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
         <el-form-item>
-          <el-input v-model="dataForm.patientid" placeholder="id" clearable></el-input>
+          <el-input v-model="dataForm.operatorid" placeholder="采集者id" clearable></el-input>
         </el-form-item>
+        <el-form-item>
+          <el-input v-model="dataForm.patientid" placeholder="人员id" clearable></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="dataForm.patientname" placeholder="姓名" clearable></el-input>
+        </el-form-item>
+        <span class="demonstration">创建时间</span>
+        <el-date-picker
+            v-model="dataForm.createStart"
+            type="date"
+            placeholder="起始日期">
+        </el-date-picker>
+        <span class="demonstration">-</span>
+        <el-date-picker
+            v-model="dataForm.createEnd"
+            type="date"
+            placeholder="结束日期">
+        </el-date-picker>
         <el-form-item>
           <el-button @click="getDataList()">{{ $t('query') }}</el-button>
         </el-form-item>
@@ -20,10 +38,10 @@
       </el-form>
       <el-table v-loading="dataListLoading" :data="dataList" border @selection-change="dataListSelectionChangeHandle" style="width: 100%;">
         <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-        <el-table-column prop="patientid" label="id" header-align="center" align="center"></el-table-column>
+        <el-table-column sortable prop="patientid" label="id" header-align="center" align="center"></el-table-column>
         <el-table-column prop="patientname" label="姓名" header-align="center" align="center"></el-table-column>
-        <el-table-column prop="age" label="年龄" header-align="center" align="center" :formatter="formatSex"></el-table-column>
-        <el-table-column prop="sex" label="性别" header-align="center" align="center"></el-table-column>
+        <el-table-column prop="age" label="年龄" header-align="center" align="center" ></el-table-column>
+        <el-table-column prop="sex" label="性别" header-align="center" align="center" :formatter="formatSex"></el-table-column>
         <el-table-column prop="birthday" label="生日" header-align="center" align="center" :formatter="formatDate"></el-table-column>
         <el-table-column prop="height" label="身高" header-align="center" align="center"></el-table-column>
         <el-table-column prop="weight" label="体重" header-align="center" align="center"></el-table-column>
@@ -34,7 +52,7 @@
         <el-table-column prop="recordupdatetime" label="更新时间" header-align="center" align="center"></el-table-column>
         <el-table-column prop="reviser" label="修最后一次改者" header-align="center" align="center"></el-table-column>
         <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-button v-if="$hasPermission('patient:patient:update')" type="primary" size="small" @click="addOrUpdateHandle(scope.row.patientid)">{{ $t('update') }}</el-button>
             <el-button v-if="$hasPermission('patient:patient:delete')" type="danger" size="small" @click="deleteHandle(scope.row.patientid)" >{{ $t('delete') }}</el-button>
           </template>
@@ -70,7 +88,11 @@
         deleteIsBatch: true
       },
       dataForm: {
-        patientid: ''
+        patientid: '',
+        operatorid:'',
+        patientname:'',
+        createStart:'',
+        createEnd:'',
       }
     }
   },methods:{
